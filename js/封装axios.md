@@ -96,6 +96,7 @@ axiosInstance.interceptors.response.use(
     return res;
   },
   (err) => {
+    clearRequestPending(err.config);
     return Promise.reject(err);
   }
 );
