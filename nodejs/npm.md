@@ -15,15 +15,11 @@
 
 例如下载 express 模块，并添加到 dependencies 中。
 
-```
-npm install express --save
-```
+`npm install express --save`
 
 或者使用短选项 -S：
 
-```
-npm install express -S
-```
+`npm install express -S`
 
 安装完成后，package.json 文件中的 dependencies 字段将包含 Express 的信息：
 
@@ -41,18 +37,15 @@ npm install express -S
 
 例如，我们可以使用以下命令安装 sass 测试框架并将其添加到 devDependencies：
 
-```
-npm install sass --save-dev
-```
+`npm install sass --save-dev`
 
 或者使用短选项 -D：
 
-```
-npm install sass -D
-```
+`npm install sass -D`
+
 安装完成后，package.json 文件中的 devDependencies 字段将包含 Mocha 的信息：
 
-```
+```js
 "devDependencies": {
   "sass": "^8.4.0"
 }
@@ -62,8 +55,7 @@ npm install sass -D
 
 总结一下，这些选项的区别如下：
 
-*   `--save`：将依赖项添加到 `package.json` 的 `dependencies` 中。
-*   `--save-dev`：将依赖项添加到 `package.json` 的 `devDependencies` 中。
+- `--save`：将依赖项添加到 `package.json` 的 `dependencies` 中。
+- `--save-dev`：将依赖项添加到 `package.json` 的 `devDependencies` 中。
 
 在实际项目中，我们需要根据依赖包的用途来选择合适的选项。通常，对于应用程序运行时需要的依赖包，我们使用 --save 选项；对于开发、测试和构建过程中需要的依赖包，我们使用 --save-dev 选项。
-
