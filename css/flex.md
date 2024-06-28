@@ -1,4 +1,6 @@
 # flex 笔记
+<!-- 超链接 -->
+[MDN flex文档](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex)
 
 **Flex 是 Flexible Box 的缩写，翻译成中文就是“弹性盒子”，用来为盒装模型提供最大的灵活性。任何一个容器都可以通过 display: flex;成为为 Flex 布局。
 例如：**
