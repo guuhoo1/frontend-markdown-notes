@@ -6,6 +6,8 @@
 
 > CancelToken.js
 
+[ES6 Map 相关知识](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map)
+
 ```js
 // 紀錄請求中 API
 export const pendingRequests = new Map();
