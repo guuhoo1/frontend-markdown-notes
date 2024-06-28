@@ -2,16 +2,16 @@
 
 > 1.创建一个 vue 实例，作为事件总线
 
-```
-import Vue from 'vue'
-const eventBus = new Vue()
-export default eventBus
+```js
+import Vue from "vue";
+const eventBus = new Vue();
+export default eventBus;
 ```
 
 > 2.在需要监听的事件中，使用 eventBus.$on()方法监听事件
 
-```
-<!-- child1.vue -->
+```js
+//child1.vue
 <template>
     <div></div>
   </template>
@@ -40,11 +40,10 @@ export default eventBus
   </script>
 ```
 
+> 3 创建 emit 点击事件
 
-> 3创建 emit点击事件
-
-```
-<!-- child2.vue -->
+```js
+//child2.vue
 <template>
     <div>
       <!-- button 點擊觸發 doShowAlert 並帶入要傳入的訊息 -->
