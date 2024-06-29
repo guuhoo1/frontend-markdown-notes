@@ -19,35 +19,54 @@ mixins（混入），[官方](https://v2.cn.vuejs.org/v2/guide/mixins.html)的�
 var mixin = {
   data() {
     return {
-      eventStatus: {},
-    };
+      eventStatus: {}
+    }
   },
   methods: {
     addEventState(eventName) {
-      const eventStatusClone = { ...this.eventStatus };
-      eventStatusClone[eventName] = true;
-      this.eventStatus = eventStatusClone;
+      const eventStatusClone = { ...this.eventStatus }
+      eventStatusClone[eventName] = true
+      this.eventStatus = eventStatusClone
     },
     removeEventState(eventName) {
-      const eventStatusClone = { ...this.eventStatus };
-      delete eventStatusClone[eventName];
-      this.eventStatus = eventStatusClone;
+      const eventStatusClone = { ...this.eventStatus }
+      delete eventStatusClone[eventName]
+      this.eventStatus = eventStatusClone
     },
     hasEventState(eventName) {
-      return Boolean(this.eventStatus[eventName]);
+      return Boolean(this.eventStatus[eventName])
     },
-  },
-};
-export default mixin;
+    controlEventStatus(eventName, fn) {
+      if (typeof eventName !== 'string' || eventName.trim() === '') {
+        throw new Error('eventName must be a non-empty string')
+        return
+      }
+      if (typeof fn !== 'function') {
+        throw new Error('fn must be a function')
+        return
+      }
+      if (this.hasEventState(eventName)) return
+      this.addEventState(eventName)
+      return (...args) => {
+        return fn(...args)
+          .catch(err => {})
+          .finally(() => {
+            this.removeEventState(eventName)
+          })
+      }
+    }
+  }
+}
+export default mixin
 ```
 
 > 使用 mixin
 
 ```js
-import mixin from "./mixins";
+import mixin from './mixins'
 export default {
-  mixins: [mixin],
-};
+  mixins: [mixin]
+}
 ```
 
 # 四、Mixins 的特点
