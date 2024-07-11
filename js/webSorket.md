@@ -32,6 +32,7 @@ class WebSocketClient {
     this.pingInterval = options.pingInterval || 20000;
     this.isReconnecting = false;
     this.pingTimeoutId = null;
+    this.timeout = null;
   }
 
   /**
@@ -76,11 +77,14 @@ class WebSocketClient {
    * 尝试重新连接WebSocket服务器。
    */
   reconnect() {
+    //没连接上会一直重连，设置延迟避免请求过多
     if (this.isReconnecting) return;
     this.isReconnecting = true;
     console.log("WebSocket disconnected. Attempting to reconnect...");
-
-    setTimeout(() => {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(() => {
       this.socket = null;
       this.connect()
         .then(() => {
@@ -98,7 +102,12 @@ class WebSocketClient {
    */
   startPing() {
     this.pingTimeoutId = setInterval(() => {
-      this.send(JSON.stringify({ type: "ping" }));
+      if (this.socket.readyState == 1) {
+        this.send(JSON.stringify({ type: "ping" }));
+      } else {
+        clearTimeout(this.pingTimeoutId);
+        this.reconnect();
+      }
     }, this.pingInterval);
   }
 
@@ -125,7 +134,8 @@ class WebSocketClient {
     if (this.socket && this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(data);
     } else {
-      throw new Error("WebSocket connection is not open.");
+      // throw new Error("WebSocket connection is not open.");
+      this.reconnect();
     }
   }
 
